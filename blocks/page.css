@@ -1,17 +1,16 @@
-.page{
-    background-color: black;
-    color: white;
- }
- 
- .page__content{
-    margin-left: 200px;
-    margin-right: 200px;
- 
- }
- 
- .page__section{
-     max-width: 880px;
-     width: 100%;
-     position: relative;
-     margin: 0 auto;
- }
+.page {
+  background-color: black;
+  color: white;
+}
+
+.page__content {
+  margin-left: 200px;
+  margin-right: 200px;
+}
+
+.page__section {
+  max-width: 880px;
+  width: 100%;
+  position: relative;
+  margin: 0 auto;
+}

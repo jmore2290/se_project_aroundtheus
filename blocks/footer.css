@@ -1,16 +1,13 @@
-.footer{
-    color: #545454;
-
+.footer {
+  color: #545454;
 }
 
-
-.footer__copyright{
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 1.22;
-    margin-top: 67px;
-    margin-bottom: 60px;
-
+.footer__copyright {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.22;
+  margin-top: 67px;
+  margin-bottom: 60px;
 }
