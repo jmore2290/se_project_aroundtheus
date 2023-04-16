@@ -21,9 +21,8 @@ All recommended changes have been made since the last review.  Issues with @medi
   
 **Images**  
   
-The way you'll do this at work is by exporting images directly from Figma — we recommend doing that to practice more. Don't forget to optimize them [here](https://tinypng.com/), so your project loads faster. 
-  
-Good luck and have fun!
+Please see an example below of the kind of responsiveness that we are tyring to incorporate into our web design.  Notice how seamlessly the content can be viewed either on desktop or mobile.  
+ 
 ![Main page screenshot](./images/demo/mainpage.png)
 ![Mobile page screenshot](./images/demo/mobile.png)
 
