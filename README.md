@@ -24,7 +24,8 @@ All recommended changes have been made since the last review.  Issues with @medi
 The way you'll do this at work is by exporting images directly from Figma — we recommend doing that to practice more. Don't forget to optimize them [here](https://tinypng.com/), so your project loads faster. 
   
 Good luck and have fun!
-![Main page screenshot](./images/demo/MAIN PAGE (1).png)
+![Main page screenshot](./images/demo/mainpage.png)
+![Mobile page screenshot](./images/demo/mobile.png)
 
 
 **Plans for Improvement**
