@@ -7,6 +7,7 @@
 * Figma 
 * Images  
 * Plans for Improvement
+*Hosted Website
   
 **Intro**
   
@@ -29,3 +30,8 @@ Please see an example below of the kind of responsiveness that we are tyring to 
 
 **Plans for Improvement**
 We will be using the same github repo for the next few sprints.  I assume speifically to add functionality to this website through the various buttons, widgets, etc.  Should be fun. 
+
+**Hosted Website**
+Please see link to website hosted in github below:
+
+* [Link to Around The US Project](https://jmore2290.github.io/se_project_aroundtheus/index.html)

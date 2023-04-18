@@ -9,10 +9,17 @@
   margin: 45px 0 41px 0;
 }
 
+
 @media screen and (max-width: 480px) {
   .header__image {
     width: 126px;
     height: 24px;
-    margin: 28px 0 32px 0;
   }
+
+  .header {
+    padding: 28px 0 0 27px;
+    margin-right: 0;
+    margin-left: 0;
+  }
+
 }

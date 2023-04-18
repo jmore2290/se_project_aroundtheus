@@ -6,6 +6,7 @@
 .page__content {
   margin-left: 200px;
   margin-right: 200px;
+  
 }
 
 .page__section {
@@ -15,10 +16,25 @@
   margin: 0 auto;
 }
 
-@media screen and (max-width: 1112px) {
-  .page__content {
+@media screen and (max-width: 1300px) {
+  .page__content{
+    margin-left: 80px;
+    margin-right: 80px;
+  }
+  
+}
+
+@media screen and (max-width: 780px) {
+  .page__content{
     margin-left: 19px;
     margin-right: 19px;
+  }
+  
+}
+
+@media screen and (max-width: 480px) {
+  .page__content{
+    margin: 0;
   }
   
 }
