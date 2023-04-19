@@ -115,4 +115,8 @@
     flex-wrap: nowrap;
     text-align: center;
   }
+  .profile__edit-button{
+    width: 18px;
+    height: 18px;
+  }
 }
