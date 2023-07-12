@@ -33,7 +33,7 @@
   cursor: pointer;
 }
 
-.card__like-button:hover{
+.card__like-button:hover {
   background: transparent url(../images/like-active.svg);
 }
 

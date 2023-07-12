@@ -14,11 +14,10 @@
   vertical-align: top;
 }
 
-
 @media screen and (max-width: 480px) {
-.footer__copyright{
-   margin: 48px 19px 36px 19px;
-   font-size: 14px;
-   line-height: 1.21;
-}
+  .footer__copyright {
+    margin: 48px 19px 36px 19px;
+    font-size: 14px;
+    line-height: 1.21;
+  }
 }

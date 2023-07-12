@@ -29,17 +29,17 @@
           />
           <div class="profile__info">
             <h1 class="profile__title">Jacques Cousteau</h1>
-            <button class="profile__edit-button" id="profile-edit-button" type="button"></button>
+            <button
+              class="profile__edit-button"
+              id="profile-edit-button"
+              type="button"
+            ></button>
             <p class="profile__description">Explorer</p>
           </div>
           <button class="profile__add-button" type="button"></button>
         </section>
         <section class="gallery">
-          <ul class="gallery__list page__section">
-            
-
-            
-          </ul>
+          <ul class="gallery__list page__section"></ul>
         </section>
       </main>
       <footer class="footer">
@@ -47,30 +47,38 @@
       </footer>
     </div>
     <div class="modal" id="profile-edit-modal">
-      <div class="modal__container" >
-        <button class="modal__close" id="profile-modal-close"></button>
-        <p class="modal__heading">Edit Profile</p>
+      <div class="modal__container">
+        <button class="modal__close" id="profile-modal-close" type="button"></button>
+        <h3 class="modal__heading">Edit Profile</h3>
         <form class="modal__form">
-          <input type="text" placeholder="Name" class="modal__title" id="profile-title-input">
-          <input type="text" placeholder="About Me" class="modal__description" id="profile-description-input">
-          <button class="modal__button">Save</button>
+          <input
+            type="text"
+            placeholder="Name"
+            class="modal__title"
+            id="profile-title-input"
+            required
+          />
+          <input
+            type="text"
+            placeholder="About Me"
+            class="modal__description"
+            id="profile-description-input"
+            required
+          />
+          <button class="modal__button" type="submit">Save</button>
         </form>
       </div>
-    </div>  
+    </div>
 
     <template id="card-template">
       <li class="card">
-        <img
-          src=""
-          class="card__image"
-          alt=""
-        />
+        <img src="" class="card__image" alt="" />
         <div class="card__description">
           <h2 class="card__title"></h2>
           <button class="card__like-button" type="button"></button>
         </div>
       </li>
     </template>
-    <script src="./scripts/index.js"></script>
+    <script src="./scripts/index.js" defer></script>
   </body>
 </html>

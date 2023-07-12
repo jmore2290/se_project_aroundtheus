@@ -1,122 +1,128 @@
-.modal{
-    position: fixed;
-    display: none;
-    background-color: rgba(0,0,0, 0.5);
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    z-index: 999;
-    padding: 0 19px;
+.modal {
+  position: fixed;
+  display: none;
+  background-color: rgba(0, 0, 0, 0.5);
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 999;
+  padding: 0 19px;
 }
 
-.modal__opened{
-    display: flex;
+.modal__opened {
+  display: flex;
 }
 
-.modal__container{
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    background-color: white;
-    flex-wrap: wrap;
-    color: black;
-    margin: auto;
-    padding: 34px 36px 36px 36px;
-    border-radius: 10px;
+.modal__container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background-color: white;
+  flex-wrap: wrap;
+  color: black;
+  margin: auto;
+  padding: 34px 36px 36px 36px;
+  border-radius: 10px;
 }
 
-.modal__close{
-    position: absolute;
-    background-image: url(../images/close_icon_active.svg);
-    width: 40px;
-    height: 40px;
-    top: -45px;
-    right: -45px;
-    border: none;
-    background-color: transparent;
-    background-repeat: no-repeat;
-    background-size: contain;
-    cursor: pointer;
+.modal__close {
+  position: absolute;
+  background-image: url(../images/close_icon_white.svg);
+  background-color: transparent;
+  width: 40px;
+  height: 40px;
+  top: -45px;
+  right: -45px;
+  border: none;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-size: contain;
+  cursor: pointer;
 }
 
-.modal__heading{
-    font-family: Inter, Arial, sans-serif;
-    font-size: 24px;
-    font-weight: 900;
-    line-height: 1.2;
-    font-style: normal;
-    margin: 0;
+.modal__close:hover {
+  opacity: 0.6;
+  transition: 0.5s;
+  cursor: pointer;
 }
 
-.modal__form{
-    display: flex;
-    flex-direction: column;
+.modal__heading {
+  font-family: Inter, Arial, sans-serif;
+  font-size: 24px;
+  font-weight: 900;
+  line-height: 1.2;
+  font-style: normal;
+  margin: 0;
 }
 
-.modal__title{
-    font-family: Inter, Arial, sans-serif;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 1.21;
-    width: 358px;
-    height: 14px;
-    border: none;
-    border-bottom: 1px solid rgba(0,0,0, 0.2);
-    margin-top: 54px;
-    margin-bottom: 58px;
+.modal__form {
+  display: flex;
+  flex-direction: column;
 }
 
-.modal__description{
-    font-family: Inter, Arial, sans-serif;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 1.21;
-    border: none;
-    border-bottom: 1px solid rgba(0,0,0,0.2);
-    width: 358px;
-    height: 14px;
-    margin-bottom: 48px;
-
+.modal__title {
+  font-family: Inter, Arial, sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.21;
+  height: 14px;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  margin-top: 54px;
+  margin-bottom: 58px;
 }
 
-.modal__button{
-    background-color: black;
-    width: 358px;
-    height: 50px;
-    color: white;
+.modal__description {
+  font-family: Inter, Arial, sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.21;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  width: 358px;
+  height: 14px;
+  margin-bottom: 48px;
+}
+
+.modal__button {
+  background-color: black;
+  height: 50px;
+  color: white;
+  border: none;
+}
+
+.modal__button:hover {
+  opacity: 0.8;
 }
 
 @media screen and (max-width: 560px) {
-    .modal__close{
-        right: 5px;
-    }
+  .modal__close {
+    right: 5px;
+  }
 
-    .modal__title{
-        width: 238px;
-        height: 14px;
-    }
-    .modal__description{
-        width: 238px;
-        height: 14px;
-    }
-    .modal__container{
-        padding: 25px 22px 25px 22px;
-        width: 282px;
-        height: 322px;
-    }
-    .modal__button{
-        max-width: 238px;
-        max-height: 46px;
-    }
-
+  .modal__title {
+    height: 14px;
+  }
+  .modal__description {
+    width: 238px;
+    height: 14px;
+  }
+  .modal__container {
+    padding: 25px 22px 25px 22px;
+    width: 282px;
+    height: 322px;
+  }
+  .modal__button {
+    max-height: 46px;
+  }
 }
 
 @media screen and (max-width: 380px) {
-    .modal{
-       padding: 0;
-    }
-    .modal__container{
-        width: auto;
-    }
+  .modal {
+    padding: 0;
+  }
+  .modal__container {
+    width: auto;
+  }
 }
