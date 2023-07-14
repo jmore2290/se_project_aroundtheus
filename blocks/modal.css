@@ -80,9 +80,27 @@
   line-height: 1.21;
   border: none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  width: 358px;
   height: 14px;
   margin-bottom: 48px;
+}
+
+.modal__input {
+  font-family: Inter, Arial, sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.21;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  height: 14px;
+}
+
+.modal__input:last-of-type{
+  margin-bottom: 48px;
+}
+
+.modal__input:first-of-type{
+  margin-top: 54px;
+  margin-bottom: 58px;
 }
 
 .modal__button {
@@ -94,19 +112,12 @@
 
 .modal__button:hover {
   opacity: 0.8;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 560px) {
   .modal__close {
     right: 5px;
-  }
-
-  .modal__title {
-    height: 14px;
-  }
-  .modal__description {
-    width: 238px;
-    height: 14px;
   }
   .modal__container {
     padding: 25px 22px 25px 22px;
