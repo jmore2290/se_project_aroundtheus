@@ -1,87 +1,141 @@
-const initialCards = [
-  {
-    name: "Boxed Water Is Better",
-    link: "https://images.unsplash.com/photo-1570654621852-9dd25b76b38d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-  },
-  {
-    name: "Andrea De Santis",
-    link: "https://images.unsplash.com/photo-1682282462523-996afa93708b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1887&q=80",
-  },
-  {
-    name: "Josh Hild",
-    link: "https://images.unsplash.com/photo-1681958757405-926494358753?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80",
-  },
-  {
-    name: "Budapest, Hongrie",
-    link: "https://images.unsplash.com/photo-1549877452-9c387954fbc2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-  },
-  {
-    name: "Mumbia, India",
-    link: "https://plus.unsplash.com/premium_photo-1674898520828-87fbb9cc428e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-  },
-  {
-    name: "La Petite Ceinture",
-    link: "https://images.unsplash.com/photo-1556905200-279565513a2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-  },
-];
+import Card from "../components/Card.js";
+import FormValidator from "../components/FormValidator.js";
+import "../pages/index.css";
+import UserInfo from "../components/UserInfo.js";
+import Section from "../components/Section.js";
+import ImagePopup from "../components/PopupWithImage.js";
+import FormPopup from "../components/PopupWithForm.js";
+import {
+  initialCards,
+  profileEditButton,
+  profileEditModal,
+  previewImageModal,
+  addCardModal,
+  profileModalCloseButton,
+  addCardModalCloseButton,
+  previewImageCloseButton,
+  addNewCardButton,
+  profileTitle,
+  profileDescription,
+  profileTitleInput,
+  profileDescriptionInput,
+  previewImageFooter,
+  profileEditForm,
+  addCardForm,
+  cardTemplate,
+  cardListEl,
+  cardTitleInput,
+  cardURLInput,
+  validationSettings,
+} from "../utils/constants.js";
+import Api from "../components/Api.js";
 
-const profileEditButton = document.querySelector("#profile-edit-button");
-const profileEditModal = document.querySelector("#profile-edit-modal");
-const modalCloseButton = document.querySelector("#profile-modal-close");
-const profileTitle = document.querySelector(".profile__title");
-const profileDescription = document.querySelector(".profile__description");
-const profileTitleInput = document.querySelector("#profile-title-input");
-const profileDescriptionInput = document.querySelector(
-  "#profile-description-input"
+const api = new Api({
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
+    authorization: "56650f35-0129-4ee2-9029-d6c252dfe588",
+    "Content-Type": "application/json"
+  }
+});
+
+const cardSection = new Section(
+  {
+    items: initialCards,
+    renderer: (cardData) => {
+      cardSection.addItem(createCard(cardData));
+    },
+  },
+  cardListEl
 );
-const profileEditForm = profileEditModal.querySelector(".modal__form");
-const cardTemplate =
-  document.querySelector("#card-template").content.firstElementChild;
-const cardListEl = document.querySelector(".gallery__list");
 
-/*    FUNCTIONS
- */
-function closePopup() {
-  profileEditModal.classList.remove("modal__opened");
-}
+cardSection.renderItems();
 
-function getCardElement(cardData) {
-  const cardElement = cardTemplate.cloneNode(true);
-  const cardImageEl = cardElement.querySelector(".card__image");
-  const cardTitleEl = cardElement.querySelector(".card__title");
-  cardImageEl.setAttribute("alt", cardData.name);
-  cardImageEl.setAttribute("src", cardData.link);
-  // set the path of the image to the link field of the object
-  //set the image alt text to the name field of the object
-  //set the card title to the name field of the object.  too
-  cardTitleEl.textContent = cardData.name;
-  return cardElement;
+const user = new UserInfo({ profileTitle, profileDescription });
+console.log(user);
+
+const editFormValidator = new FormValidator(
+  validationSettings,
+  profileEditForm
+);
+
+const addCardValidator = new FormValidator(validationSettings, addCardForm);
+editFormValidator.enableValidation();
+addCardValidator.enableValidation();
+
+console.log(profileEditModal);
+//const editFormPopup = new FormPopup(profileEditModal, handleProfileEditSubmit);
+const editFormPopup = new FormPopup(
+  editFormPopup,
+  (values) => {
+    profileForm.setLoading(true);
+    api
+      .patchProfileData(values)
+      .then((data) => {
+        userInfo.setUserInfo(data);
+        profileForm.close();
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        profileForm.setLoading(false, "Save");
+      });
+  }
+);
+
+
+
+
+
+
+
+
+
+editFormPopup.setEventListeners();
+const addCardFormPopup = new FormPopup(addCardModal, handleAddCardFormSubmit);
+addCardFormPopup.setEventListeners();
+
+const previewImage = new ImagePopup(previewImageModal);
+previewImage.setEventListeners();
+
+function createCard(data) {
+  const cardElement = new Card(data, cardTemplate, handleCardImageClick);
+  return cardElement.getView();
 }
 
 /*   EVENT HANDLERS
  */
 
-function handleProfileEditSubmit(e) {
-  e.preventDefault();
-  profileTitle.textContent = profileTitleInput.value;
-  profileDescription.textContent = profileDescriptionInput.value;
-  closePopup();
+function handleCardImageClick(link, name) {
+  const data = { link, name };
+
+  previewImage.open(data);
 }
 
-/*EVENT LISTENERS
- */
+function handleProfileEditSubmit(data) {
+  const { name, description } = data;
+
+  user.setUserInfo(name, description);
+
+  editFormPopup.close();
+}
+
+function handleAddCardFormSubmit(data) {
+  const { name, link } = data;
+  //const cardElement = new Card(data, cardTemplate, handleCardImageClick);
+  cardSection.addItem(createCard(data));
+  addCardFormPopup.close();
+}
 
 profileEditButton.addEventListener("click", () => {
-  profileTitleInput.value = profileTitle.textContent;
-  profileDescriptionInput.value = profileDescription.textContent;
-  profileEditModal.classList.add("modal__opened");
+  const { profileTitle, profileDescription } = user.getUserInfo();
+  profileTitleInput.value = profileTitle;
+  profileDescriptionInput.value = profileDescription;
+  editFormPopup.open();
+  //should I have a validator here?????
 });
 
-modalCloseButton.addEventListener("click", closePopup);
-
-profileEditForm.addEventListener("submit", handleProfileEditSubmit);
-
-initialCards.forEach((cardData) => {
-  const cardElement = getCardElement(cardData);
-  cardListEl.prepend(cardElement);
+addNewCardButton.addEventListener("click", () => {
+  addCardFormPopup.open();
+  addCardValidator.toggleButtonState();
 });
