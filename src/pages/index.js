@@ -11,10 +11,12 @@ import {
   profileEditModal,
   previewImageModal,
   addCardModal,
+  editAvatarModal,
   profileModalCloseButton,
   addCardModalCloseButton,
   previewImageCloseButton,
   addNewCardButton,
+  avatarEditSelector,
   profileTitle,
   profileDescription,
   profileTitleInput,
@@ -22,12 +24,22 @@ import {
   previewImageFooter,
   profileEditForm,
   addCardForm,
+  editAvatarForm,
   cardTemplate,
   cardListEl,
   cardTitleInput,
   cardURLInput,
   validationSettings,
 } from "../utils/constants.js";
+import Api from "../components/Api.js";
+
+const api = new Api({
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
+    authorization: "58a7c735-ac44-49af-aeeb-e746dacd4b77",
+    "Content-Type": "application/json"
+  }
+});
 
 const cardSection = new Section(
   {
@@ -40,23 +52,81 @@ const cardSection = new Section(
 );
 
 cardSection.renderItems();
-
-const user = new UserInfo({ profileTitle, profileDescription });
+console.log(avatarEditSelector);
+const user = new UserInfo(profileTitle, profileDescription, avatarEditSelector );
 console.log(user);
 
 const editFormValidator = new FormValidator(
   validationSettings,
   profileEditForm
 );
+
+const avatarFormValidator = new FormValidator(
+  validationSettings,
+  editAvatarForm
+);
+
 const addCardValidator = new FormValidator(validationSettings, addCardForm);
 editFormValidator.enableValidation();
 addCardValidator.enableValidation();
+avatarFormValidator.enableValidation();
 
 console.log(profileEditModal);
-const editFormPopup = new FormPopup(profileEditModal, handleProfileEditSubmit);
+//const editFormPopup = new FormPopup(profileEditModal, handleProfileEditSubmit);
+
+const addCardFormPopup = new FormPopup(addCardModal, (values) => {
+  api
+    .addNewCard(values)
+    .then((data) => {
+      renderCard(data);
+      addCardForm.close();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+});
+
+
+
+const editFormPopup = new FormPopup(
+  profileEditModal,
+  (values) => {
+    api
+      .patchProfileData(values)
+      .then((data) => {
+        user.setUserInfo(data);
+        profileEditForm.close();
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+);
+
+
+const avatarEditPopup = new FormPopup(
+  editAvatarModal,
+  (values) => {
+    api
+      .patchProfileImage(values.link)
+      .then((data) => {
+        console.log(data.avatar);
+        user.setAvatar(data.avatar);
+        editAvatarForm.close();
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+);
+
+
+
+
 editFormPopup.setEventListeners();
-const addCardFormPopup = new FormPopup(addCardModal, handleAddCardFormSubmit);
+//const addCardFormPopup = new FormPopup(addCardModal, handleAddCardFormSubmit);
 addCardFormPopup.setEventListeners();
+avatarEditPopup.setEventListeners();
 
 const previewImage = new ImagePopup(previewImageModal);
 previewImage.setEventListeners();
@@ -74,7 +144,7 @@ function handleCardImageClick(link, name) {
 
   previewImage.open(data);
 }
-
+/*
 function handleProfileEditSubmit(data) {
   const { name, description } = data;
 
@@ -89,6 +159,12 @@ function handleAddCardFormSubmit(data) {
   cardSection.addItem(createCard(data));
   addCardFormPopup.close();
 }
+*/
+
+//avatar edit
+avatarEditSelector.addEventListener("click", () =>{
+   avatarEditPopup.open();
+});
 
 profileEditButton.addEventListener("click", () => {
   const { profileTitle, profileDescription } = user.getUserInfo();

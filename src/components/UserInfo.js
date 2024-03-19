@@ -1,7 +1,9 @@
 export default class UserInfo {
-  constructor({ profileTitle, profileDescription }) {
+  constructor( profileTitle, profileDescription, profileImage ) {
     this._profileTitle = profileTitle;
     this._profileDescription = profileDescription;
+    this._profileImage = profileImage;
+    console.log(this._profileImage);
   }
 
   getUserInfo() {
@@ -12,8 +14,14 @@ export default class UserInfo {
     return info;
   }
 
-  setUserInfo(newName, newJob) {
+  setUserInfo({newName, newJob}) {
     this._profileTitle.textContent = newName;
     this._profileDescription.textContent = newJob;
+    
+  }
+
+  setAvatar(newAvatar){
+    console.log(newAvatar);
+    this._profileImage.src(newAvatar);
   }
 }
