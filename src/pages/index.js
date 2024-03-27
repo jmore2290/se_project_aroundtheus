@@ -4,6 +4,7 @@ import "../pages/index.css";
 import UserInfo from "../components/UserInfo.js";
 import Section from "../components/Section.js";
 import ImagePopup from "../components/PopupWithImage.js";
+import PopupConfirm from "../components/PopupConfirm.js";
 import FormPopup from "../components/PopupWithForm.js";
 import {
   initialCards,
@@ -12,6 +13,7 @@ import {
   previewImageModal,
   addCardModal,
   editAvatarModal,
+  popupConfirmModal,
   profileModalCloseButton,
   addCardModalCloseButton,
   previewImageCloseButton,
@@ -37,24 +39,87 @@ const api = new Api({
   baseUrl: "https://around-api.en.tripleten-services.com/v1",
   headers: {
     authorization: "58a7c735-ac44-49af-aeeb-e746dacd4b77",
-    "Content-Type": "application/json"
-  }
+    "Content-Type": "application/json",
+  },
 });
+
+const popupConfirm = new PopupConfirm(popupConfirmModal);
+popupConfirm.setEventListeners();
+
+const user = new UserInfo(profileTitle, profileDescription, avatarEditSelector);
+console.log(user);
+
+const renderCard = (cardData) => {
+  const card = new Card(
+    {
+      cardData,
+      userId: userId,
+      handleCardClick: (imageData) => {
+        previewImage.open(imageData);
+      },
+      handleDeleteClick,
+      handleLikeClick,
+    },
+    cardTemplate
+  );
+  cardSection.addItem(card.getCardView());
+};
+
+function handleDeleteClick(item) {
+  popupConfirm.open();
+  popupConfirm.setSubmitAction(() => {
+    api
+      .deleteCard(item.getId())
+      .then(() => {
+        item.removeCard();
+        popupConfirm.close();
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  });
+}
+
+function handleLikeClick(card) {
+  if (!card._isLiked) {
+    api
+      .addCardLike(card._id)
+      .then(() => {
+        card.updateLikeStatus(true);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  } else {
+    api
+      .removeCardLike(card._id)
+      .then(() => {
+        card.updateLikeStatus(false);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+}
 
 const cardSection = new Section(
   {
-    items: initialCards,
-    renderer: (cardData) => {
-      cardSection.addItem(createCard(cardData));
-    },
+    renderer: renderCard,
   },
   cardListEl
 );
 
-cardSection.renderItems();
+let userId = "";
+
+// Loading initial section
+
+api.getAppInfo().then(([cards, userData]) => {
+  userId = userData._id;
+  cardSection.renderItems(cards), user.setUserInfo(userData);
+  console.log(userData);
+});
+
 console.log(avatarEditSelector);
-const user = new UserInfo(profileTitle, profileDescription, avatarEditSelector );
-console.log(user);
 
 const editFormValidator = new FormValidator(
   validationSettings,
@@ -79,49 +144,39 @@ const addCardFormPopup = new FormPopup(addCardModal, (values) => {
     .addNewCard(values)
     .then((data) => {
       renderCard(data);
-      addCardForm.close();
+      addCardFormPopup.close();
     })
     .catch((err) => {
       console.log(err);
-    })
+    });
 });
 
+const editFormPopup = new FormPopup(profileEditModal, (values) => {
+  console.log(values);
+  api
+    .patchProfileData(values)
+    .then((data) => {
+      user.setUserInfo(data);
+      editFormPopup.close();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+console.log(popupConfirmModal);
 
-
-const editFormPopup = new FormPopup(
-  profileEditModal,
-  (values) => {
-    api
-      .patchProfileData(values)
-      .then((data) => {
-        user.setUserInfo(data);
-        profileEditForm.close();
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-  }
-);
-
-
-const avatarEditPopup = new FormPopup(
-  editAvatarModal,
-  (values) => {
-    api
-      .patchProfileImage(values.link)
-      .then((data) => {
-        console.log(data.avatar);
-        user.setAvatar(data.avatar);
-        editAvatarForm.close();
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-  }
-);
-
-
-
+const avatarEditPopup = new FormPopup(editAvatarModal, (values) => {
+  api
+    .patchProfileImage(values.link)
+    .then((data) => {
+      console.log(data.avatar);
+      user.setAvatar(data.avatar);
+      avatarEditPopup.close();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
 
 editFormPopup.setEventListeners();
 //const addCardFormPopup = new FormPopup(addCardModal, handleAddCardFormSubmit);
@@ -131,39 +186,12 @@ avatarEditPopup.setEventListeners();
 const previewImage = new ImagePopup(previewImageModal);
 previewImage.setEventListeners();
 
-function createCard(data) {
-  const cardElement = new Card(data, cardTemplate, handleCardImageClick);
-  return cardElement.getView();
-}
-
 /*   EVENT HANDLERS
  */
 
-function handleCardImageClick(link, name) {
-  const data = { link, name };
-
-  previewImage.open(data);
-}
-/*
-function handleProfileEditSubmit(data) {
-  const { name, description } = data;
-
-  user.setUserInfo(name, description);
-
-  editFormPopup.close();
-}
-
-function handleAddCardFormSubmit(data) {
-  const { name, link } = data;
-  //const cardElement = new Card(data, cardTemplate, handleCardImageClick);
-  cardSection.addItem(createCard(data));
-  addCardFormPopup.close();
-}
-*/
-
 //avatar edit
-avatarEditSelector.addEventListener("click", () =>{
-   avatarEditPopup.open();
+avatarEditSelector.addEventListener("click", () => {
+  avatarEditPopup.open();
 });
 
 profileEditButton.addEventListener("click", () => {

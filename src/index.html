@@ -21,13 +21,13 @@
       </header>
       <main class="content">
         <section class="profile page__section">
-          <img
-            src="<%=require('./images/jacques-cousteau.png')%>"
-             alt="Jacques Cousteau Avatar"
-            class="profile__image"
-          />
           <div class="profile__pic-overlay">
             <button class="profile__pic-overlay_button" type="button">
+              <img
+                src="<%=require('./images/jacques-cousteau.png')%>"
+                alt="Jacques Cousteau Avatar"
+                class="profile__image"
+              />
               <img
                 class="profile__pic-edit"
                 src="<%=require('./images/edit_pen_active.svg')%>"
@@ -173,6 +173,20 @@
             ></span>
           </div>
           <button class="modal__button" type="submit" disabled>Save</button>
+        </form>
+      </div>
+    </div>
+    <!--Confirm Modal-->
+    <div class="modal" id="popup-confirm-modal">
+      <div class="modal__container">
+        <button
+          class="modal__close"
+          id="popup-confirm-close"
+          type="submit"
+        ></button>
+        <h3 class="modal__heading">Are You Sure?</h3>
+        <form class="modal__form" id="popup-confirm-form">
+          <button class="modal__button" type="submit">Save</button>
         </form>
       </div>
     </div>

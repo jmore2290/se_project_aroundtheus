@@ -71,39 +71,42 @@
 }
 
 .profile__image {
+  display: relative;
   width: 120px;
   height: 120px;
-  margin-right: 24px;
   object-fit: cover;
   border-radius: 50%;
   background-position: center;
   cursor: url(../images/edit_pen_active.svg), auto;
 
-  .profile__pic-overlay {
-    display: flex;
-    position: absolute;
-    opacity: 0;
-    height: 127px;
-    width: 127px;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.6);
-    transition: opacity 0.25s;
-  }
-  
-  .profile__pic-overlay:hover {
-    opacity: 1;
-    cursor: pointer;
-  }
-  
-  .profile__pic-overlay_button {
-    background-color: transparent;
-    border: none;
-  }
-  
-  .profile__pic-overlay_button:hover {
-    cursor: pointer;
-  }
+}
+
+.profile__pic-overlay {
+  display: flex;
+  flex-wrap: wrap;
+  opacity: 1;
+  margin-right: 24px;
+  height: 127px;
+  width: 127px;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.6);
+  transition: opacity 0.25s;
+}
+
+.profile__pic-overlay:hover {
+  opacity: 0.3;
+  cursor: pointer;
+}
+
+.profile__pic-overlay_button {
+  background-color: transparent;
+  border: none;
+  position: absolute;
+}
+
+.profile__pic-overlay_button:hover {
+  cursor: pointer;
 }
 
 @media screen and (max-width: 480px) {

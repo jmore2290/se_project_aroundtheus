@@ -30,6 +30,7 @@ const profileEditModal = document.querySelector("#profile-edit-modal");
 const previewImageModal = document.querySelector("#preview-image-modal");
 const addCardModal = document.querySelector("#add-card-modal");
 const editAvatarModal = document.querySelector("#edit-avatar-modal");
+const popupConfirmModal = document.querySelector("#popup-confirm-modal");
 const profileModalCloseButton = profileEditModal.querySelector(
   "#profile-modal-close"
 );
@@ -73,6 +74,7 @@ export {
   profileEditButton,
   profileEditModal,
   previewImageModal,
+  popupConfirmModal,
   addCardModal,
   editAvatarModal,
   avatarEditSelector,
